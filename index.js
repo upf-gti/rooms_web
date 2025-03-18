@@ -25,14 +25,20 @@ const footer = new LX.Footer( {
             ]
         },
         {
-            title: "MAX-R Project",
+            title: "About wgpuEngine",
             items: [
-                { title: "Official webpage", link: "https://www.upf.edu/web/max-r" },
-                { title: "wgpuEngine", link: "" }
+                { title: "Source code", link: "https://github.com/upf-gti/wgpuEngine" },
+                { title: "Documentation", link: "https://upf-gti.github.io/wgpuEngine/" },
             ]
         },
         {
-            title: "Other Projects",
+            title: "MAX-R Project",
+            items: [
+                { title: "Official webpage", link: "https://www.upf.edu/web/max-r" }
+            ]
+        },
+        {
+            title: "Other UPF-GTI Projects",
             items: [
                 { title: "Animics", link: "http://animics.gti.upf.edu/" },
                 { title: "Performs", link: "https://performs.gti.upf.edu/" }

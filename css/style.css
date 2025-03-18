@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@font-face {
+    font-family: "GoogleSans";
+    src: url("../data/GoogleSans.ttf");
+}
+
+:root {
+    color-scheme: light dark;
+    --palette-color-primary: #f3f1f0;
+    --palette-color-secondary: #ebe7e3;
+    --palette-color-terciary: #FF6700;
+    --palette-color-highlight-light: #7755ee;
+    --palette-color-highlight: #443388;
+    --palette-color-highlight-dark: #151632;
+}
+
+@media (prefers-color-scheme: dark) {
+    #dark-scheme-icon{
+        display: block;
+    }
+
+    #light-scheme-icon{
+        display: none;
+    }
+}
+
+body {
+    background-color: light-dark(var(--palette-color-primary), var(--palette-color-secondary)) !important;
+}
+
+#lexroot {
+    bottom: unset;
+    height: auto;
+}
+
+#lexroot .lexarea {
+    background-color: light-dark(var(--palette-color-primary), var(--palette-color-secondary)) !important;
+}
+
+.rooms-font {
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5.5em;
+    background: -webkit-linear-gradient(
+        var(--palette-color-terciary),
+        var(--palette-color-highlight-light)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.rooms-font.sm {
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: var(--palette-color-primary);
+    font-size: 1.5em;
+}
+
+@media screen and (min-width: 480px) {
+    .rooms-font {
+        font-size: 8em;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .rooms-font {
+        font-size: 10em;
+    }
+}
+
+#content {
+    color: #222;
+    text-align: center;
+    height: 100%;
+}
+
+header {
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.catch-frase {
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+#button-container {
+    width: 35%;
+    margin: 0 auto;
+}
+
+#button-container button {
+    padding: 20px;
+    background-color: var(--palette-color-highlight-light);
+    color: var(--palette-color-primary);
+}
+
+#button-container .lexwidget:nth-child(2n) button {
+    background-color: var(--palette-color-highlight);
+}
+
+#button-container button span {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.description {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.description img {
+    width: 100%;
+    margin-top: 24px;
+}
+
+#logo-upf {
+    width: 50%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: light-dark(var(--palette-color-secondary), var(--palette-color-highlight-dark)) !important;
+}
+
+@media screen and (max-width: 1080px) {
+    #button-container .lexinlinewidgets {
+        display: unset;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #button-container  {
+        width: 100%;
+    }
+}

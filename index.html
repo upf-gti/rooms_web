@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rooms</title>
-  <link rel="icon" href="images/logo_rooms_light_icon.png" type="image/x-icon">
-  <link rel="icon" href="images/logo_rooms_light_icon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="images/logo_rooms_dark_icon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon">
+  <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="data/logo_rooms_dark_icon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="https://cdn.skypack.dev/lexgui/build/lexgui.css">
   <link href="css/style.css" rel="stylesheet">
   <script type="importmap">
@@ -39,12 +38,87 @@
         the barrier of entry for creating 3D assets to import into novel XR experiences.</p>
     </div>
     <div class="description">
-      <img src="images/demo_capture.png" alt="">
+      <img src="data/demo_capture.png" alt="">
       <p>Developed using <b>wgpuEngine</b>, the new engine of the <a href="https://www.upf.edu/web/gti">UPF-GTI</a></p>
-      <img id="logo-upf" src="images/logo_upf_black.png" alt="">
+      <div style="display: grid; gap: 1em; grid-template-columns: repeat(3, 1fr);">
+        <img src="data/logo_upf_black.png" alt="">
+        <img src="data/logo_maxr_main_sRGB.png" alt="">
+        <img src="data/miciu-cofinanciadoUE-aei.png" alt="">
+      </div>
     </div>
   </div>
+  <script type="module" src="js/index.js"></script>
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1
+        style="position:fixed;height:100%;width:100%;top:0%;left:0%;resize:both;"></canvas>
+  <template id="main-script">
+    <script async src=index.js></script>
+  </template>
+  <script type='text/javascript'>
+
+    var Module = {
+        preRun: [],
+        postRun: [],
+        canvas: (function () {
+            var canvas = document.getElementById('canvas');
+
+            // Event handler to resize the canvas when the document view is changed
+            window.addEventListener('resize', () => {
+                canvas.clientWidth = window.innerWidth;
+                canvas.clientHeight = window.innerHeight;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }, false);
+
+            return canvas;
+        })(),
+        totalDependencies: 0
+    };
+
+    async function onEnginePreInitialized() {
+
+        await Promise.resolve( Module.Engine.getInstance() ).then( result => {
+
+            if ( !result ) {
+                console.error( "Module Instance is null" );
+            }
+
+            window.engineInstance = result;
+
+        } ).catch( error => {
+            console.log( error );
+        });
+
+        Promise.resolve( window.engineInstance.setWasmModuleInitialized(true) ).then().catch( error => {
+            console.log( error );
+        });
+    }
+
+    function onEngineInitialized() {
+    }
+
+    (async () => {
+        // Custom for WebGPU
+        if (!navigator.gpu) {
+            console.error("Sorry, WebGPU is not supported by your browser.");
+            const msg = document.createElement("div");
+            Object.assign(msg.style, {
+                width: "50%",
+                fontSize: "36px",
+                fontWeight: "500",
+                textAlign: "center",
+                margin: "0 auto",
+                marginTop: "25%"
+            });
+            msg.innerText = "Sorry, WebGPU is not supported by your browser.";
+            document.body.appendChild(msg);
+            return;
+        } else {
+            const jsTemplate = document.getElementById("main-script");
+            const js = jsTemplate.content.cloneNode(true);
+            document.body.appendChild(js);
+        }
+    })();
+</script>
 </body>
-<script type="module" src="index.js"></script>
 
 </html>

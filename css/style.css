@@ -112,6 +112,10 @@ header {
     background-color: var(--palette-color-highlight);
 }
 
+#button-container button:disabled {
+    background-color: #aaa;
+}
+
 #button-container button span {
     font-size: 22px;
     font-weight: 700;
@@ -127,10 +131,6 @@ header {
 .description img {
     width: 100%;
     margin-top: 24px;
-}
-
-#logo-upf {
-    width: 50%;
 }
 
 footer {

@@ -28,7 +28,9 @@
     <div class="catch-frase">
       <p>An innovative XR experience creation tool.</p>
     </div>      
-    <br>
+    <div class="description">
+      <p id="error-msg"></p>
+    </div>
     <div id="button-container">
       <!--  -->
     </div>
@@ -51,7 +53,7 @@
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1
         style="position:fixed;height:100%;width:100%;top:0%;left:0%;resize:both;"></canvas>
   <template id="main-script">
-    <script async src=index.js></script>
+    <script async type="text/javascript" src="rooms.js"></script>
   </template>
   <script type='text/javascript'>
 
@@ -96,28 +98,42 @@
     function onEngineInitialized() {
     }
 
-    (async () => {
-        // Custom for WebGPU
-        if (!navigator.gpu) {
-            console.error("Sorry, WebGPU is not supported by your browser.");
-            const msg = document.createElement("div");
-            Object.assign(msg.style, {
-                width: "50%",
-                fontSize: "36px",
-                fontWeight: "500",
-                textAlign: "center",
-                margin: "0 auto",
-                marginTop: "25%"
-            });
-            msg.innerText = "Sorry, WebGPU is not supported by your browser.";
-            document.body.appendChild(msg);
-            return;
-        } else {
+    setTimeout( () => {
+      let errorMsg = document.getElementById('error-msg');
+      if (!navigator.xr) {
+          const error_msg = "❌ Sorry, WebXR is not supported by your browser.";
+          console.error(error_msg);
+          errorMsg.textContent = error_msg;
+          return;
+      }
+      if (!navigator.gpu) {
+          const error_msg = "❌ Sorry, WebGPU is not supported by your browser.";
+          console.error(error_msg);
+          errorMsg.textContent = error_msg;
+          return;
+      }
+      if (!('XRGPUBinding' in window)) {
+          const error_msg = "❌ Sorry, WebXR/WebGPU interop is not supported by your browser.";
+          console.error(error_msg);
+          errorMsg.textContent = error_msg;
+          return;
+      }
+      // If the UA allows creation of immersive VR sessions enable the
+      // target of the 'Enter XR' button.
+      const supported = navigator.xr.isSessionSupported('immersive-vr').then( () => {
+          if (!supported) {
+            const error_msg = "❌ Immersive VR not supported.";
+            console.error(error_msg);
+            errorMsg.textContent = error_msg;
+          } else {
+            errorMsg.textContent = "✅ Your browser supports WebXR with WebGPU!";
             const jsTemplate = document.getElementById("main-script");
             const js = jsTemplate.content.cloneNode(true);
             document.body.appendChild(js);
-        }
-    })();
+          }
+      });
+    }, 100 );
+
 </script>
 </body>
 

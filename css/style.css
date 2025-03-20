@@ -122,7 +122,7 @@ header {
 }
 
 .description {
-    max-width: 800px;
+    max-width: min(90%, 800px);
     margin: 0 auto;
     font-size: 1.2em;
     line-height: 1.6;
@@ -134,7 +134,7 @@ header {
 }
 
 footer {
-    height: 225px;
+    min-height: 225px;
     background-color: light-dark(var(--palette-color-secondary), var(--palette-color-highlight-dark)) !important;
 }
 
@@ -150,5 +150,14 @@ footer {
     }
     #button-container  {
         width: 100%;
+    }
+    .lexfooter .columns {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .lexfooter .columns {
+        grid-template-columns: 1fr !important;
     }
 }

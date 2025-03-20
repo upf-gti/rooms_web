@@ -11,9 +11,14 @@ const panel = new LX.Panel();
 buttonContainer.appendChild( panel.root );
 
 panel.sameLine(2);
-const buttonWidget = panel.addButton(null, "Enter Rooms", null, { disabled: true });
-buttonWidget.querySelector( "span" ).id = "xr-button";
-panel.addButton(null, "Learn More");
+const buttonWidget = panel.addButton(null, "Enter Rooms", () => {
+    Module["webxr_request_session_func"]('immersive-vr', ['webgpu']);
+}, { disabled: true });
+panel.addButton(null, "Learn More", () => { window.open( "https://github.com/upf-gti/rooms", "_blank" ) });
+
+window.onXrReady = () => {
+    buttonWidget.querySelector( "button" ).disabled = false;
+}
 
 const footer = new LX.Footer( {
     parent: area.root,

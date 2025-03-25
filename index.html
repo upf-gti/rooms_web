@@ -1,15 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rooms</title>
-  <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon">
-  <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="data/logo_rooms_dark_icon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="https://cdn.skypack.dev/lexgui/build/lexgui.css">
-  <link href="css/style.css" rel="stylesheet">
-  <script type="importmap">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon">
+    <link rel="icon" href="data/logo_rooms_light_icon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="data/logo_rooms_dark_icon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://cdn.skypack.dev/lexgui/build/lexgui.css">
+    <link href="css/style.css" rel="stylesheet">
+    <script type="importmap">
       {
         "imports": {
           "lexgui": "https://cdn.skypack.dev/lexgui/build/lexgui.module.js",
@@ -21,120 +23,121 @@
 
 <body>
 
-  <div id="content" class="container">
-    <header class="container">
-      <span class="rooms-font">ROOMS</span>
-    </header>
-    <div class="catch-frase">
-      <p>An innovative XR experience creation tool.</p>
-    </div>      
-    <div class="description">
-      <p id="error-msg"></p>
+    <div id="content" class="container">
+        <header class="container">
+            <span class="rooms-font">ROOMS</span>
+        </header>
+        <div class="catch-frase">
+            <p>An innovative XR experience creation tool.</p>
+        </div>
+        <div class="description">
+            <p id="error-msg"></p>
+        </div>
+        <div id="button-container">
+            <!--  -->
+        </div>
+        <br>
+        <div class="description">
+            <p><b>Rooms</b> is a platform for creating 3D content for XR experiences directly in XR-enabled hardware.
+                Rooms
+                targets democratising the content creation process by lowering
+                the barrier of entry for creating 3D assets to import into novel XR experiences.</p>
+        </div>
+        <div class="description">
+            <img src="data/demo_capture.png" alt="">
+            <p>Developed using <b>wgpuEngine</b>, the new engine of the <a
+                    href="https://www.upf.edu/web/gti">UPF-GTI</a></p>
+            <div style="display: grid; gap: 1em; grid-template-columns: repeat(3, 1fr);">
+                <img src="data/logo_upf_black.png" alt="">
+                <img src="data/logo_maxr_main_sRGB.png" alt="">
+                <img src="data/miciu-cofinanciadoUE-aei.png" alt="">
+            </div>
+        </div>
     </div>
-    <div id="button-container">
-      <!--  -->
-    </div>
-    <br>
-    <div class="description">
-      <p><b>Rooms</b> is a platform for creating 3D content for XR experiences directly in XR-enabled hardware. Rooms targets democratising the content creation process by lowering 
-        the barrier of entry for creating 3D assets to import into novel XR experiences.</p>
-    </div>
-    <div class="description">
-      <img src="data/demo_capture.png" alt="">
-      <p>Developed using <b>wgpuEngine</b>, the new engine of the <a href="https://www.upf.edu/web/gti">UPF-GTI</a></p>
-      <div style="display: grid; gap: 1em; grid-template-columns: repeat(3, 1fr);">
-        <img src="data/logo_upf_black.png" alt="">
-        <img src="data/logo_maxr_main_sRGB.png" alt="">
-        <img src="data/miciu-cofinanciadoUE-aei.png" alt="">
-      </div>
-    </div>
-  </div>
-  <script type="module" src="js/index.js"></script>
-  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1
-        style="position:fixed;height:100%;width:100%;top:0%;left:0%;resize:both;"></canvas>
-  <template id="main-script">
-    <script async type="text/javascript" src="rooms.js"></script>
-  </template>
-  <script type='text/javascript'>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1 style="position:fixed;height:100%;width:100%;top:0%;left:0%;resize:both;"></canvas>
+    <script type="module" src="js/index.js"></script>
+    <template id="main-script">
+        <script async type="text/javascript" src="rooms.js"></script>
+    </template>
+    <script type='text/javascript'>
 
-    var Module = {
-        preRun: [],
-        postRun: [],
-        canvas: (function () {
-            var canvas = document.getElementById('canvas');
+        var Module = {
+            preRun: [],
+            postRun: [],
+            canvas: (function () {
+                var canvas = document.getElementById('canvas');
 
-            // Event handler to resize the canvas when the document view is changed
-            window.addEventListener('resize', () => {
-                canvas.clientWidth = window.innerWidth;
-                canvas.clientHeight = window.innerHeight;
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }, false);
+                // Event handler to resize the canvas when the document view is changed
+                window.addEventListener('resize', () => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                }, false);
 
-            return canvas;
-        })(),
-        totalDependencies: 0
-    };
+                return canvas;
+            })(),
+            totalDependencies: 0
+        };
 
-    async function onEnginePreInitialized() {
+        async function onEnginePreInitialized() {
 
-        await Promise.resolve( Module.Engine.getInstance() ).then( result => {
+            await Promise.resolve(Module.Engine.getInstance()).then(result => {
 
-            if ( !result ) {
-                console.error( "Module Instance is null" );
+                if (!result) {
+                    console.error("Module Instance is null");
+                }
+
+                window.engineInstance = result;
+
+            }).catch(error => {
+                console.log(error);
+            });
+
+            Promise.resolve(window.engineInstance.setWasmModuleInitialized(true)).then().catch(error => {
+                console.log(error);
+            });
+        }
+
+        function onEngineInitialized() {
+        }
+
+        setTimeout(() => {
+            let errorMsg = document.getElementById('error-msg');
+            if (!navigator.xr) {
+                const error_msg = "❌ Sorry, WebXR is not supported by your browser.";
+                console.error(error_msg);
+                errorMsg.textContent = error_msg;
+                return;
             }
+            if (!navigator.gpu) {
+                const error_msg = "❌ Sorry, WebGPU is not supported by your browser.";
+                console.error(error_msg);
+                errorMsg.textContent = error_msg;
+                return;
+            }
+            if (!('XRGPUBinding' in window)) {
+                const error_msg = "❌ Sorry, WebXR/WebGPU interop is not supported by your browser.";
+                console.error(error_msg);
+                errorMsg.textContent = error_msg;
+                return;
+            }
+            // If the UA allows creation of immersive VR sessions enable the
+            // target of the 'Enter XR' button.
+            const supported = navigator.xr.isSessionSupported('immersive-vr').then(() => {
+                if (!supported) {
+                    const error_msg = "❌ Immersive VR not supported.";
+                    console.error(error_msg);
+                    errorMsg.textContent = error_msg;
+                } else {
+                    errorMsg.textContent = "✅ Your browser supports WebXR with WebGPU!";
+                    const jsTemplate = document.getElementById("main-script");
+                    const js = jsTemplate.content.cloneNode(true);
+                    document.body.appendChild(js);
+                }
+            });
+        }, 100);
 
-            window.engineInstance = result;
-
-        } ).catch( error => {
-            console.log( error );
-        });
-
-        Promise.resolve( window.engineInstance.setWasmModuleInitialized(true) ).then().catch( error => {
-            console.log( error );
-        });
-    }
-
-    function onEngineInitialized() {
-    }
-
-    setTimeout( () => {
-      let errorMsg = document.getElementById('error-msg');
-      if (!navigator.xr) {
-          const error_msg = "❌ Sorry, WebXR is not supported by your browser.";
-          console.error(error_msg);
-          errorMsg.textContent = error_msg;
-          return;
-      }
-      if (!navigator.gpu) {
-          const error_msg = "❌ Sorry, WebGPU is not supported by your browser.";
-          console.error(error_msg);
-          errorMsg.textContent = error_msg;
-          return;
-      }
-      if (!('XRGPUBinding' in window)) {
-          const error_msg = "❌ Sorry, WebXR/WebGPU interop is not supported by your browser.";
-          console.error(error_msg);
-          errorMsg.textContent = error_msg;
-          return;
-      }
-      // If the UA allows creation of immersive VR sessions enable the
-      // target of the 'Enter XR' button.
-      const supported = navigator.xr.isSessionSupported('immersive-vr').then( () => {
-          if (!supported) {
-            const error_msg = "❌ Immersive VR not supported.";
-            console.error(error_msg);
-            errorMsg.textContent = error_msg;
-          } else {
-            errorMsg.textContent = "✅ Your browser supports WebXR with WebGPU!";
-            const jsTemplate = document.getElementById("main-script");
-            const js = jsTemplate.content.cloneNode(true);
-            document.body.appendChild(js);
-          }
-      });
-    }, 100 );
-
-</script>
+    </script>
 </body>
 
 </html>

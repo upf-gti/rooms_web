@@ -74,7 +74,7 @@ html, body {
 #content {
     color: #222;
     text-align: center;
-    min-height: calc(100vh - 287px);
+    min-height: calc(100vh - 230px);
     margin: 0 auto;
     margin-bottom: 32px;
 }

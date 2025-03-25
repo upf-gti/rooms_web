@@ -6,7 +6,8 @@ const dragSupportedExtensions = [ /*'hdr', 'glb', 'ply'*/ 'room' ];
 
 // Init library and get main area
 const area = LX.init();
-area.attach( document.getElementById( "content" ) );
+const content = document.getElementById( "content" );
+area.attach( content );
 
 const buttonContainer = document.getElementById( "button-container" );
 const panel = new LX.Panel();
@@ -14,7 +15,15 @@ buttonContainer.appendChild( panel.root );
 
 panel.sameLine(2);
 const buttonWidget = panel.addButton(null, "Enter Rooms", () => {
-    Module["webxr_request_session_func"]('immersive-vr', ['webgpu']);
+    content.innerHTML = "";
+    const canvas = document.getElementById('canvas');
+    content.appendChild( canvas );
+    setTimeout( () => {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        Module["webxr_request_session_func"]('immersive-vr', ['webgpu']);
+    }, 10 )
 }, { disabled: true });
 panel.addButton(null, "Learn More", () => { window.open( "https://github.com/upf-gti/rooms", "_blank" ) });
 
@@ -69,11 +78,12 @@ window.onXrReady = () => {
     const canvas = document.getElementById( "canvas" );
     canvas.addEventListener('dragenter', e => e.preventDefault() );
     canvas.addEventListener('dragleave', e => e.preventDefault() );
+    canvas.addEventListener("dragover", (e) => e.preventDefault());
     canvas.addEventListener('drop', (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
         const ext = LX.getExtension( file.name );
-        if( this.dragSupportedExtensions.indexOf( ext ) == -1 )
+        if( dragSupportedExtensions.indexOf( ext ) == -1 )
             return;
         switch( ext )
         {

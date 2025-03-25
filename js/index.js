@@ -2,6 +2,8 @@ import { LX } from 'lexgui';
 
 window.LX = LX;
 
+const dragSupportedExtensions = [ /*'hdr', 'glb', 'ply'*/ 'room' ];
+
 // Init library and get main area
 const area = LX.init();
 area.attach( document.getElementById( "content" ) );
@@ -16,8 +18,71 @@ const buttonWidget = panel.addButton(null, "Enter Rooms", () => {
 }, { disabled: true });
 panel.addButton(null, "Learn More", () => { window.open( "https://github.com/upf-gti/rooms", "_blank" ) });
 
+window.loadScene = ( loader, file, data ) => {
+
+    if( !data )
+    {
+        // file is the path URL
+        if( file.constructor == String )
+        {
+            const path = file;
+            LX.requestBinary( path, ( data ) => loader.call(this, path, data ), ( e ) => {
+                LX.toast( "Request Blocked", e.constructor === String ? e : `[${ path }] can't be loaded.`, { timeout: 5000 } );
+                // this.toggleModal( false );
+            } );
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsArrayBuffer( file );
+        reader.onload = e => loader.call(this, file.name, e.target.result );
+        return;
+    }
+
+    loader.call(this, file.name ?? file, data );
+};
+
+window._loadScene = ( name, buffer ) => {
+
+    name = name.substring( name.lastIndexOf( '/' ) + 1 );
+
+    console.log( "Loading room", [ name, buffer ] );
+
+    _fileStore( name, buffer );
+
+    window.engineInstance.loadRoom( name );
+
+    // this.toggleModal( false );
+};
+
+window._fileStore = ( filename, buffer ) => {
+
+    let data = new Uint8Array( buffer );
+    let stream = FS.open( filename, 'w+' );
+    FS.write( stream, data, 0, data.length, 0 );
+    FS.close( stream );
+}
+
 window.onXrReady = () => {
     buttonWidget.querySelector( "button" ).disabled = false;
+
+    const canvas = document.getElementById( "canvas" );
+    canvas.addEventListener('dragenter', e => e.preventDefault() );
+    canvas.addEventListener('dragleave', e => e.preventDefault() );
+    canvas.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        const ext = LX.getExtension( file.name );
+        if( this.dragSupportedExtensions.indexOf( ext ) == -1 )
+            return;
+        switch( ext )
+        {
+            // case 'hdr': this.loadEnvironment( file ); break;
+            // case 'glb': this.loadLocation( this._loadGltf, file ); break;
+            // case 'ply': this.toggleModal( true ); this.loadLocation( this._loadPly, file ); break;
+            case 'room': /*this.toggleModal( true );*/ loadScene( _loadScene, file ); break;
+        }
+    });
 }
 
 const footer = new LX.Footer( {

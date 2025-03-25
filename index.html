@@ -23,38 +23,42 @@
 
 <body>
 
-    <div id="content" class="container">
-        <header class="container">
+    <div id="content">
+        <header>
             <span class="rooms-font">ROOMS</span>
         </header>
         <div class="catch-frase">
+            <br>
             <p>An innovative XR experience creation tool.</p>
-        </div>
-        <div class="description">
-            <p id="error-msg"></p>
+            <br>
         </div>
         <div id="button-container">
             <!--  -->
         </div>
         <br>
-        <div class="description">
-            <p><b>Rooms</b> is a platform for creating 3D content for XR experiences directly in XR-enabled hardware.
-                Rooms
-                targets democratising the content creation process by lowering
-                the barrier of entry for creating 3D assets to import into novel XR experiences.</p>
-        </div>
-        <div class="description">
-            <img src="data/demo_capture.png" alt="">
-            <p>Developed using <b>wgpuEngine</b>, the new engine of the <a
-                    href="https://www.upf.edu/web/gti">UPF-GTI</a></p>
-            <div style="display: grid; gap: 1em; grid-template-columns: repeat(3, 1fr);">
-                <img src="data/logo_upf_black.png" alt="">
-                <img src="data/logo_maxr_main_sRGB.png" alt="">
-                <img src="data/miciu-cofinanciadoUE-aei.png" alt="">
+        <div id="content-main" class="container">
+            <p id="error-msg"></p>
+            <br>
+            <div>
+                <p><b>Rooms</b> is a platform for creating 3D content for XR experiences directly in XR-enabled hardware.
+                    Rooms
+                    targets democratising the content creation process by lowering
+                    the barrier of entry for creating 3D assets to import into novel XR experiences.</p>
+            </div>
+            <div>
+                <img src="data/demo_capture.png" alt="">
+                <p>Developed using <b>wgpuEngine</b>, the new engine of the <a
+                        href="https://www.upf.edu/web/gti">UPF-GTI</a></p>
+                <br><br>
+                <div style="display: grid; gap: 1em; grid-template-columns: repeat(3, 1fr);">
+                    <img src="data/logo_upf_black.png" alt="">
+                    <img src="data/logo_maxr_main_sRGB.png" alt="">
+                    <img src="data/miciu-cofinanciadoUE-aei.png" alt="">
+                </div>
             </div>
         </div>
     </div>
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1 style="position:fixed;height:100%;width:100%;top:0%;left:0%;resize:both;"></canvas>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1 style="background-color:#000;height:100%;width:100%;resize:both;"></canvas>
     <script type="module" src="js/index.js"></script>
     <template id="main-script">
         <script async type="text/javascript" src="rooms.js"></script>

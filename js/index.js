@@ -15,13 +15,15 @@ buttonContainer.appendChild( panel.root );
 
 panel.sameLine(2);
 const buttonWidget = panel.addButton(null, "Enter Rooms", () => {
-    content.innerHTML = "";
+    const main = document.getElementById( "content-main" );
+    main.innerHTML = "";
     const canvas = document.getElementById('canvas');
-    content.appendChild( canvas );
+    main.appendChild( canvas );
+    buttonContainer.remove();
     setTimeout( () => {
         const rect = canvas.parentElement.getBoundingClientRect();
         canvas.width = rect.width;
-        canvas.height = rect.height;
+        canvas.height = rect.width / 1.777; // keep aspect
         Module["webxr_request_session_func"]('immersive-vr', ['webgpu']);
     }, 10 )
 }, { disabled: true });
